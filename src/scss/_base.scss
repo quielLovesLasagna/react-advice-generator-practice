@@ -1,0 +1,77 @@
+@use "./abstracts" as abs;
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: abs.$cl-dark-blue;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: abs.$ff-manrope;
+}
+
+img,
+svg {
+	max-width: 100%;
+	display: block;
+}
+
+// CONTAINER
+.container {
+	width: fit-content;
+	height: fit-content;
+	max-width: abs.toRem(550px);
+	background-color: abs.$cl-dark-grayish-blue;
+	text-align: center;
+	padding: abs.toRem(40px) abs.toRem(40px) abs.toRem(10px) abs.toRem(40px);
+	border-radius: abs.toRem(15px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	@media only screen and (max-width: 37.5em) {
+		margin-inline: 1rem;
+	}
+
+	&__advice-num {
+		color: abs.$cl-neon-green;
+		text-transform: uppercase;
+		letter-spacing: abs.toRem(5px);
+		font-weight: abs.$fw-xlarge;
+		margin-bottom: abs.toRem(20px);
+		font-size: abs.toRem(14px);
+	}
+
+	&__quote {
+		color: abs.$cl-light-cyan;
+		font-weight: abs.$fw-xlarge;
+		font-size: abs.toRem(28px);
+		margin-bottom: abs.toRem(35px);
+	}
+
+	&__dice-box {
+		cursor: pointer;
+		border: none;
+		width: abs.toRem(60px);
+		height: abs.toRem(60px);
+		background-color: abs.$cl-neon-green;
+		display: grid;
+		place-items: center;
+		border-radius: 50%;
+		position: relative;
+		bottom: -2.5rem;
+		transition: all 0.2s;
+
+		&:hover {
+			box-shadow: 0 0 2rem 0.6rem rgba(abs.$cl-neon-green, 0.5);
+		}
+	}
+}
