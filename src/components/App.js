@@ -45,6 +45,7 @@ export default function App() {
 	}
 
 	const loadingIndicator = isLoading && "Loading...";
+	const errorIndicator = error && error;
 
 	return (
 		<main className="main">
@@ -52,12 +53,12 @@ export default function App() {
 				<p className="container__advice-num">
 					{loadingIndicator}
 					{!isLoading && !error && `Advice #${adviceID}`}
-					{error && error}
+					{errorIndicator}
 				</p>
 				<blockquote className="container__quote">
 					{loadingIndicator}
 					{!isLoading && !error && `"${advice}"`}
-					{error && error}
+					{errorIndicator}
 				</blockquote>
 				<img
 					src="./images/pattern-divider-desktop.svg"
