@@ -1,48 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAdvice } from "./useAdvice";
 
-// API
-const ADVICEAPI = "https://api.adviceslip.com/advice";
+let getAdviceFunc = null;
+
+function handleGetAdvice() {
+	getAdviceFunc();
+}
 
 export default function App() {
-	const [advice, setAdvice] = useState("");
-	const [adviceID, setAdviceID] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState("");
+	const { advice, adviceID, isLoading, error, getAdvice } = useAdvice();
+	getAdviceFunc = getAdvice;
 
-	async function getAdvice() {
-		try {
-			setIsLoading(true);
-			setError("");
-
-			const res = await fetch(ADVICEAPI);
-
-			if (!res.ok) {
-				throw new Error("There was a problem fetching the data!");
-			}
-
-			const data = await res.json();
-
-			if (data.slip && data.slip.advice) {
-				const { advice, id } = data.slip;
-				setAdvice(advice);
-				setAdviceID(id);
-			} else {
-				throw new Error("Couldn't get advice, try again later!");
-			}
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setIsLoading(false);
-		}
-	}
-
-	useEffect(function () {
-		getAdvice();
+	useEffect(() => {
+		handleGetAdvice();
 	}, []);
-
-	function handleGetAdviceClick() {
-		getAdvice();
-	}
 
 	const loadingIndicator = isLoading && "Loading...";
 	const errorIndicator = error && error;
@@ -65,7 +36,7 @@ export default function App() {
 					alt="divider"
 					className="container__divider"
 				/>
-				<button className="container__dice-box" onClick={handleGetAdviceClick}>
+				<button className="container__dice-box" onClick={handleGetAdvice}>
 					<img
 						src="./images/icon-dice.svg"
 						alt="dice"
